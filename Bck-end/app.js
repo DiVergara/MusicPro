@@ -41,7 +41,7 @@ app.post("/api/clients",(req,res)=>{
         "11", 
         "125", 
         56000, 
-        "http://localhost:3000/Productos/"
+        "http://localhost:3000/Recibo/"
           );
           console.log(createResponse)
           const token=createResponse;

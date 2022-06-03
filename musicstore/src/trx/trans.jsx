@@ -1,8 +1,6 @@
-import axios, { Axios } from 'axios';
 import React, { useEffect as UseEffect, useState as UseState } from 'react';
 import { useParams as UseParams } from 'react-router-dom';
-import { WebpayPlus } from 'transbank-sdk';
-import { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } from 'transbank-sdk';
+
 
 
 const trans = () => {
@@ -10,12 +8,12 @@ const trans = () => {
     
 
 //Variables Pagina 
-    const montoVenta=UseParams()
+    const {montoVenta}=UseParams()
 
     const buyOrder="1";
     const sessionId="40156";
     const amount=montoVenta;
-    const returnUrl="http://localhost:3000/Productos/"
+    const returnUrl="http://localhost:3000/Recibo/"
     //const data=([buyOrder,sessionId,amount,returnUrl])
 
 
@@ -33,7 +31,7 @@ getTrx().then((data)=>{setDataTrx(data)})
 
 
 
-//console.log(dataTrx.token)
+console.log(dataTrx.token)
 
 
 
@@ -53,10 +51,9 @@ getTrx().then((data)=>{setDataTrx(data)})
             <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Correo Electronico</label>
                     <input type="email" class="form-control col-xs-3" id="email" placeholder="name@example.com" style={styleInput}/>
-                    
+                    <p style={styleLabel}>Monto Productos: ${amount}</p>
                 </div>
             <form action={dataTrx.url} method="POST">
-                <p style={styleLabel}>Monto Productos: ${montoVenta}</p>
                 <input type="hidden" name="token_ws" value={dataTrx.token}/>
                 <input class='btn btn-success' type="submit" value="Pagar"/>
             </form>

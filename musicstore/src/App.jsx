@@ -4,6 +4,7 @@ import Contacto from "./comps/Contacto";
 import Productos from "./comps/Productos";
 import Inicio from "./comps/Inicio";
 import Trx from "./trx/trans";
+import Recipe from "./trx/Recibo";
 
 
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path='/Productos' element={<Productos/>}></Route>
                 <Route path='/Contacto' element={<Contacto/>}></Route>
                 <Route path='/trx/:montoVenta' element={<Trx/>}></Route>
+                <Route path='/Recibo' element={<Recipe/>}></Route>
             </Routes>
         </Router>
         
