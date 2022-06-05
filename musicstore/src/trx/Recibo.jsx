@@ -20,7 +20,7 @@ const Recibo = () => {
 
     const getTrx=async()=>{
     
-          return fetch('http://localhost:5500/trxRecibo/').then(response => response.json());
+          return fetch('http://localhost:5500/trxRecibo/'+tokenData).then(response => response.json());
     
     }
     
@@ -29,18 +29,58 @@ const Recibo = () => {
     console.log(dataTrx)
 
 
+    const tipoVenta=(codVenta)=>{
+        switch (codVenta) {
+            case "VD":
+                
+                return "Venta Débito";
+            case "VN":
 
+                return "Venta Normal";
+            case "VC":
 
+                return "Venta en cuotas";
+            case "SI":
 
+                return "3 cuotas sin interés";
+            case "S2":
+
+                return "2 cuotas sin interés";
+            case "NC":
+
+                return "Cuotas sin interés";
+            case "VP":
+
+                return "Venta Prepago";
+            default:
+                return "Error en Definicion";
+        }
+    }
+    const fechaFormat=()=>{
+        const fechaTrx=dataTrx.transaction_date;
+
+        return fechaTrx.substring(0,10);
+    }
+    const cardDetail=dataTrx.card_detail.card_number;
 
     return (
-        <div>
-            <h3>Aqui tiene su Boleta</h3>
-            <a>{dataTrx.status+'/'}</a>
-            <a>{dataTrx.amount+'/'}</a>
-            <a>{dataTrx.payment_type_code+'/'}</a>
-            <a>{dataTrx.transaction_date}</a>
-            <Link class="btn btn-success" to={"/"}>Volver a Inicio</Link>
+        <div class="container">
+            <div class="row row-cols-1">
+                <h1 class="text-center">Boleta de su Compra</h1>
+                <a>Orden de Compra: {dataTrx.buy_order+' / '}</a>
+                <a>Detalle de la Tarjeta: XXXX XXXX XXXX {cardDetail+' / '}</a>
+                <a>Monto Total: ${dataTrx.amount+' / '}</a>
+                <a>Tipo de Venta: {tipoVenta(dataTrx.payment_type_code)+' / '}</a>
+                <a>Fecha de Transacción: {fechaFormat()+' / '}</a>
+                <a>Código de respuesta: {dataTrx.response_code+' / '}</a>
+                <a>Cantidad de cuotas: {dataTrx.installments_number+' / '}</a>
+                <a>Monto de las cuotas: {dataTrx.installments_amount+' / '}</a>
+            </div>
+            <div class="text-center">
+                <Link class="btn btn-success" to={"/"}>Volver a Inicio</Link>
+
+            </div>
+            
         </div>
     );
 };

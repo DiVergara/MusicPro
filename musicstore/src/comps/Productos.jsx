@@ -56,17 +56,6 @@ const Productos = () => {
     );
 
 
-
-    /*
-            <div style={styleDivBody}>
-                {productos.map((producto=>(
-                    <ProdCards cod={producto.cod} imagen={producto.imagen} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={productos}/>
-                )))}
-            </div>
-
-            <h2>hola</h2>
-                {productos.map((item)=>(<Prod prod={item} cart={cart} setCart={setCart} productos={productos} />))}
-            */
 };
 
 export default Productos;

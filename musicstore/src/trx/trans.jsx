@@ -23,7 +23,7 @@ const trans = () => {
 
 const getTrx=async()=>{
 
-      return fetch('http://localhost:5500/webpay/:'+parseInt(amount.toString())).then(response => response.json());
+      return fetch('http://localhost:5500/webpay/'+amount).then(response => response.json());
 
 }
 

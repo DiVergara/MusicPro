@@ -33,15 +33,15 @@ app.post("/api/clients",(req,res)=>{
 
 
 //------------Metodo GET para TOKEN y URL
-    const execFunc=async(monto)=>{
+    const execFunc=async(montoPago)=>{
       const tx = new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration));
 
-      
+      const amount=parseInt(montoPago);
       const createResponse = await tx.create(
         "11", 
         "125", 
-        Number.parseInt(monto), 
-        "http://localhost:3000/Productos/"
+        amount, 
+        "http://localhost:3000/Recibo/"
           );
           console.log(createResponse)
           const token=createResponse;
@@ -52,10 +52,7 @@ app.post("/api/clients",(req,res)=>{
   
 app.get("/webpay/:amount",(req,res)=>{
   const monto=req.params.amount;
-  console.log(monto.replace(/[\*\+]/g," ")
-  .replace(/^\d+(\s+)?/,"") // or add .trim()
-  .replace(/\n?/,"")
-  .replace(/\s{2,}/g," "))
+  console.log(monto)
   execFunc(monto).then((datos)=>res.send(datos)) 
 })
 //--------------------------
@@ -67,7 +64,7 @@ const funcStatus=async(tokenTrx)=>{
   const tx = new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration));
 
   
-  const createResponse = await tx.commit('01abf4afbf7aba94d47185015ad618f75b955358f7031bb4a9fbed3959fc0cf1');
+  const createResponse = await tx.commit(tokenTrx);
       console.log(createResponse)
       const statusTrx=createResponse;
     return statusTrx;
@@ -75,8 +72,8 @@ const funcStatus=async(tokenTrx)=>{
 
 
 
-app.get("/trxRecibo/",(req,res)=>{
-  const tokenTrx=req.params.data;
+app.get("/trxRecibo/:token",(req,res)=>{
+  const tokenTrx=req.params.token;
   funcStatus(tokenTrx).then((datos)=>res.send(datos)) 
 })
 
