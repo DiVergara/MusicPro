@@ -56,22 +56,22 @@ const Recibo = () => {
                 return "Error en Definicion";
         }
     }
-    const fechaFormat=()=>{
+    /*const fechaFormat=()=>{
         const fechaTrx=dataTrx.transaction_date;
 
         return fechaTrx.substring(0,10);
     }
-    const cardDetail=dataTrx.card_detail.card_number;
-
+    const cardDetail=dataTrx.card_detail;
+*/
     return (
         <div class="container">
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 text-center">
                 <h1 class="text-center">Boleta de su Compra</h1>
                 <a>Orden de Compra: {dataTrx.buy_order+' / '}</a>
-                <a>Detalle de la Tarjeta: XXXX XXXX XXXX {cardDetail+' / '}</a>
+                <a>Detalle de la Tarjeta: XXXX XXXX XXXX {+' / '}</a>
                 <a>Monto Total: ${dataTrx.amount+' / '}</a>
                 <a>Tipo de Venta: {tipoVenta(dataTrx.payment_type_code)+' / '}</a>
-                <a>Fecha de Transacción: {fechaFormat()+' / '}</a>
+                <a>Fecha de Transacción: {+' / '}</a>
                 <a>Código de respuesta: {dataTrx.response_code+' / '}</a>
                 <a>Cantidad de cuotas: {dataTrx.installments_number+' / '}</a>
                 <a>Monto de las cuotas: {dataTrx.installments_amount+' / '}</a>
