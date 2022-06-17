@@ -6,7 +6,7 @@ import OffcanvasTittle from 'react-bootstrap/OffcanvasTitle'
 import ProdCards from './ProdCards';
 import ProdCarro from './ProdCarro';
 import { Link } from 'react-router-dom';
-
+import CloseButton from 'react-bootstrap/CloseButton'
 
 
 
