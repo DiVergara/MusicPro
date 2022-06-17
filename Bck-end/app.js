@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-
+import { createConnection } from 'mysql';
 import pkg from 'transbank-sdk';
 const { WebpayPlus } = pkg;
 const { Options, IntegrationApiKeys, Environment, IntegrationCommerceCodes } = pkg;
@@ -32,6 +32,7 @@ app.post("/api/clients",(req,res)=>{
 
 
 
+//Transbank
 //------------Metodo GET para TOKEN y URL
     const execFunc=async(montoPago)=>{
       const tx = new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration));
@@ -81,4 +82,40 @@ app.get("/trxRecibo/:token",(req,res)=>{
 
 
 //--------------------------------------------------------------------
+
+
+
+
+//BD MySQL
+
+const conexion= createConnection({
+  host:'localhost',
+  database:'musicpro',
+  user:'root',
+  password:''
+})
+
+conexion.connect(function(error){
+  if(error){
+      throw error;
+  }else{
+      console.log('Conexion Exitosa')
+  }
+})
+///----Productos
+app.get("/bd/listarProds/:cat",(req,res)=>{
+  const categoria=req.params.cat;
+  const sql='SELECT * FROM PRODUCTOS WHERE CATEGORIA="'+categoria+'"';
+  conexion.query(sql,function(error,results){
+    if(error)
+      throw error;
+
+    if(results.length>0){
+        res.json(results);
+    }else{
+      res.send('No hay registros');
+    }
+  })
+})
+  
 
