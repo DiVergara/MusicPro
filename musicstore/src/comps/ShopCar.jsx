@@ -52,7 +52,7 @@ const ShopCar=({cart,setCart})=>{
                             ${montoVenta}
                         </ul>
                         <ul class='col'>
-                        <Link class="btn" to={"/trx/"+montoVenta}>Pagar</Link>
+                        <Link class="btn btn-success" to={"/trx/"+montoVenta}>Pagar</Link>
                         </ul>
                     </div>
                 </OffcanvasBody>

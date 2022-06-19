@@ -19,6 +19,7 @@ app.listen(port,()=>{
     console.log('Server is Listening at http://localhost:'+port);
 })
 
+/*
 app.get("/",(req,res)=>{
     res.send("HelloWorld");
 })
@@ -28,7 +29,7 @@ app.post("/api/clients",(req,res)=>{
     res.send("You have posted something")
 })
 
-
+*/
 
 
 
