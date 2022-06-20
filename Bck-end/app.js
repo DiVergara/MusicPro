@@ -118,5 +118,18 @@ app.get("/bd/listarProds/:cat",(req,res)=>{
     }
   })
 })
-  
 
+
+
+app.put("/bd/BorrarProd/:id",(req,res)=>{
+  const codProd=req.params.id;
+  const sql='UPDATE productos SET existencia=(SELECT existencia-1 FROM productos WHERE codigoProducto="'+codProd+'") WHERE codigoProducto="'+codProd+'"';
+  conexion.query(sql,function(error,results){
+    if(error){
+      throw error;
+    }else{
+      res.send(results);
+    }
+    
+  })
+})

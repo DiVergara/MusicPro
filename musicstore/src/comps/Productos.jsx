@@ -41,7 +41,7 @@ const Productos = () => {
     return (
         <div style={{backgroundcolor:"black"}}>
             <div style={styleCar} class='position-fixed top-1 end-0'>
-            <Shopcar cart={cart} setCart={setCart}/>
+                <Shopcar cart={cart} setCart={setCart}/>
             </div>
             <div class="container-fluid">
             <div style={styleDivBody} class="row row-cols-3">
