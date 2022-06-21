@@ -58,9 +58,11 @@ const Productos = () => {
             </div>
             <div class="container-fluid">
             <div style={styleDivBody} class="row row-cols-3">
-                {prodsBD.map((producto=>(
-                    <ProdCards cod={producto.codigoProducto} imagen={producto.foto} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={prodsBD}/>
-                )))}
+                {prodsBD.map((producto)=>{
+                    if(producto.existencia>0){
+                        <ProdCards cod={producto.codigoProducto} imagen={producto.foto} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={prodsBD}/>
+                    }
+                })}
             </div>
             </div>
         </div>
