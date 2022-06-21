@@ -104,7 +104,9 @@ conexion.connect(function(error){
   }
 })
 ///----Productos
-app.get("/bd/listarProds/:cat",(req,res)=>{
+
+//Listar por categoria
+app.get("/bd/listarProdsCat/:cat",(req,res)=>{
   const categoria=req.params.cat;
   const sql='SELECT * FROM PRODUCTOS WHERE CATEGORIA="'+categoria+'"';
   conexion.query(sql,function(error,results){
@@ -119,6 +121,23 @@ app.get("/bd/listarProds/:cat",(req,res)=>{
   })
 })
 
+//Listar Todos
+app.get("/bd/listarProds/",(req,res)=>{
+  const sql='SELECT * FROM PRODUCTOS';
+  conexion.query(sql,function(error,results){
+    if(error)
+      throw error;
+
+    if(results.length>0){
+        res.json(results);
+    }else{
+      res.send('No hay registros');
+    }
+  })
+})
+
+
+
 
 
 app.put("/bd/BorrarProd/:id",(req,res)=>{
@@ -128,7 +147,7 @@ app.put("/bd/BorrarProd/:id",(req,res)=>{
     if(error){
       throw error;
     }else{
-      res.send(results);
+      res.send('OK');
     }
     
   })

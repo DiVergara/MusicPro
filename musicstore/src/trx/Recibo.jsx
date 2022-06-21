@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { post } from 'jquery';
 import {React, useState} from 'react';
 import { Link,useParams } from 'react-router-dom';
 
@@ -15,20 +17,32 @@ const Recibo = () => {
     
     const tokenData=getUrlParameter('token_ws');
     //console.log(tokenData);
-
+    const [carro]=([JSON.parse(localStorage.getItem('cart'))]);
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
     const [dataTrx,setDataTrx]=useState("");
+    const {resp,setResp}=false;
+
+
+    const delItems=async(cod)=>{
+        axios.put('http://localhost:5500/bd/BorrarProd/'+cod).then(response => response.json());
+    }
+
 
     const getTrx=async()=>{
-    
           return fetch('http://localhost:5500/trxRecibo/'+tokenData).then(response => response.json());
-    
     }
     
     getTrx().then((data)=>{setDataTrx(data)})
     
-    console.log(dataTrx)
+    //console.log(dataTrx)
+    const modStock=()=>{
+            carro.map((prods)=>(
+                delItems(prods.codigoProducto).then((data)=>setResp(data))
+                
+            ))
+            console.log(resp);
+    }
 
 
     const tipoVenta=(codVenta)=>{
@@ -60,6 +74,7 @@ const Recibo = () => {
     }
 
     
+
     return (
         <div class="container">
             <div class="row row-cols-1 text-center">
@@ -68,16 +83,16 @@ const Recibo = () => {
                 <a>Monto Total: ${dataTrx.amount+'  '}</a>
                 <a>Tipo de Venta: {tipoVenta(dataTrx.payment_type_code)+'  '}</a>
                 <a>Fecha de Transacción: {hoy.toLocaleDateString()}</a>
-                {dataTrx.payment_type_code !="VD" ? (<a>Cantidad de cuotas: {dataTrx.installments_number+'  '}</a>) :<p/>}
-                {dataTrx.payment_type_code !="VD" ? (<a>Monto de las cuotas: ${dataTrx.installments_amount+' '}</a>) :<p/>}
-                <p></p>
+                {dataTrx.installments_number !=0 ? (<a>Cantidad de cuotas: {dataTrx.installments_number+'  '}</a>) :<p/>}
+                {dataTrx.installments_amount !=undefined ? (<a>Monto de las cuotas: ${dataTrx.installments_amount+' '}</a>) :<p/>}
             </div>
             <div class="text-center">
-                <Link class="btn btn-success" to={"/"}>Volver a Inicio</Link>
+                <Link class="btn btn-success" to={"/"} onClick={()=>modStock()}>Volver a Inicio</Link>
 
             </div>
             
-        </div>
+            
+        </div>  
     );
 };
 

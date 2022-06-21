@@ -2,6 +2,8 @@ import React, { useEffect as UseEffect, useState as UseState } from 'react';
 import { useParams as UseParams } from 'react-router-dom';
 import './trans.css'
 import jQuery from "jquery";
+import { useState } from 'react';
+import { Cart } from 'react-ionicons';
 
 
 const trans = () => {
@@ -127,24 +129,24 @@ jQuery(function () {
     const amount=montoVenta;
     const returnUrl="http://localhost:3000/Recibo/"
     //const data=([buyOrder,sessionId,amount,returnUrl])
+	
 
-
+	//console.log(carro.map((prod)=>(prod.codigoProducto)))
     //Webpay
 
     const [dataTrx,setDataTrx]=UseState("");
+	const [respuesta,setRespuesta]=UseState("");
 
-const getTrx=async()=>{
-
-      return fetch('http://localhost:5500/webpay/'+amount).then(response => response.json());
-
-}
-
-getTrx().then((data)=>{setDataTrx(data)})
-
+//Metodos WebService
+	const getTrx=async()=>{
+      	return fetch('http://localhost:5500/webpay/'+amount).then(response => response.json());
+	}
+	getTrx().then((data)=>{setDataTrx(data)})
+	//---------------
 
 
-console.log(dataTrx.token)
 
+	//console.log(dataTrx.token)
 
 //Styles
     const styleInput={
@@ -152,7 +154,6 @@ console.log(dataTrx.token)
     }
     
     return (
-        
         <div class="container">
             <h2>Datos para Envio</h2>
             <div class="mb-2">
@@ -177,7 +178,7 @@ console.log(dataTrx.token)
             <p class="txtMonto">Monto Productos: ${amount}</p>
             <form class="text-center" action={dataTrx.url} method="POST">
                 <input type="hidden" name="token_ws" value={dataTrx.token}/>
-                <input class="btn_pay" type="submit" value="Pagar"/>
+                {amount!=="0" ?(<input class="btn_pay" type="submit" value="Pagar"/>):<p> No Se puede efectuar Venta</p>}
             </form>
         </div>
     );

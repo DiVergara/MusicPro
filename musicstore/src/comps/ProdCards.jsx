@@ -9,7 +9,7 @@ const ProdCards = (props) => {
 
     //funcion agregar a cart
     const addProd=(id)=>{
-        const prod=productos.filter((producto)=> producto.cod===id);
+        const prod=productos.filter((producto)=> producto.codigoProducto===id);
         setCart([...cart,...prod])
     }
 

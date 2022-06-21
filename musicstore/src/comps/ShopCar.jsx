@@ -12,18 +12,16 @@ import CloseButton from 'react-bootstrap/CloseButton'
 
 const ShopCar=({cart,setCart})=>{
     
-
-    const products=useState([]);
-    
     
     const [show,setShow]=useState(false);
     const handleClose=()=>setShow(false);
     const handleShow=()=>setShow(true);
     const [montoVenta,setMontoVenta]=useState(0);
     
-    //useEffect(()=>{setMontoVenta(cart.map(item=>item.valor)+montoVenta)});
+
     useEffect(()=>{setMontoVenta(cart.map(item=>item.precio).reduce((prev, curr) => prev + curr, 0))});
 
+    localStorage.setItem('cart',JSON.stringify(cart.map((prods)=>(prods))));
     
     
     return (
@@ -52,7 +50,8 @@ const ShopCar=({cart,setCart})=>{
                             ${montoVenta}
                         </ul>
                         <ul class='col'>
-                        <Link class="btn btn-success" to={"/trx/"+montoVenta}>Pagar</Link>
+                        {montoVenta!="0" ?(<Link class="btn btn-success" to={"/trx/"+montoVenta}>Pagar</Link>):<p></p>}
+
                         </ul>
                     </div>
                 </OffcanvasBody>
