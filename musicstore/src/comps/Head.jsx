@@ -25,11 +25,12 @@ const Head = () => {
             <div class="row row-cols-5">
                 <ul>
                     <li class="dropdown">
-                        <a href="/Productos/" class="navig">Cuerdas</a>
+                        <a href="/Productos/Cuerdas" class="navig">Cuerdas</a>
                         <div class="dropdown-content">
-                            <a href="/Productos/Guitarras">Guitarras</a>
-                            <a href="/Productos/Bajos">Bajos</a>
-                            <a href="/Productos/Pianos">Pianos</a>
+                            <a href="/Productos/Cuerdas-GA">Guitarras Acusticas</a>
+                            <a href="/Productos/Cuerdas-GE">Guitarras Electricas</a>
+                            <a href="/Productos/Cuerdas-BS">Bajos</a>
+                            <a href="/Productos/Cuerdas-PO">Pianos</a>
                         </div>
                     </li>
                 </ul>
