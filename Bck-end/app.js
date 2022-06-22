@@ -19,6 +19,22 @@ app.listen(port,()=>{
     console.log('Server is Listening at http://localhost:'+port);
 })
 
+//BD MySQL
+
+const conexion= createConnection({
+  host:'localhost',
+  database:'musicpro',
+  user:'root',
+  password:''
+})
+
+conexion.connect(function(error){
+  if(error){
+      throw error;
+  }else{
+      console.log('Conexion Exitosa')
+  }
+})
 /*
 app.get("/",(req,res)=>{
     res.send("HelloWorld");
@@ -31,16 +47,16 @@ app.post("/api/clients",(req,res)=>{
 
 */
 
-
+ 
 
 //Transbank
 //------------Metodo GET para TOKEN y URL
-    const execFunc=async(montoPago)=>{
+    const execFunc=async(montoPago,ordenCompra)=>{
       const tx = new WebpayPlus.Transaction(new Options(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, Environment.Integration));
-
+      const buy_order=ordenCompra;
       const amount=parseInt(montoPago);
       const createResponse = await tx.create(
-        "11", 
+        buy_order, 
         "125", 
         amount, 
         "http://localhost:3000/Recibo/"
@@ -52,10 +68,11 @@ app.post("/api/clients",(req,res)=>{
 
     
   
-app.get("/webpay/:amount",(req,res)=>{
+app.get("/webpay/:amount/:orden",(req,res)=>{
   const monto=req.params.amount;
-  console.log(monto)
-  execFunc(monto).then((datos)=>res.send(datos)) 
+  const ordenID=req.params.orden;
+
+  execFunc(monto,ordenID).then((datos)=>res.send(datos)) 
 })
 //--------------------------
 
@@ -86,23 +103,6 @@ app.get("/trxRecibo/:token",(req,res)=>{
 
 
 
-
-//BD MySQL
-
-const conexion= createConnection({
-  host:'localhost',
-  database:'musicpro',
-  user:'root',
-  password:''
-})
-
-conexion.connect(function(error){
-  if(error){
-      throw error;
-  }else{
-      console.log('Conexion Exitosa')
-  }
-})
 ///----Productos
 
 //Listar por categoria
@@ -139,7 +139,7 @@ app.get("/bd/listarProds/",(req,res)=>{
 
 
 
-
+//Actualiza el stock
 app.put("/bd/BorrarProd/:id",(req,res)=>{
   const codProd=req.params.id;
   const sql='UPDATE productos SET existencia=(SELECT existencia-1 FROM productos WHERE codigoProducto="'+codProd+'") WHERE codigoProducto="'+codProd+'"';
@@ -150,5 +150,36 @@ app.put("/bd/BorrarProd/:id",(req,res)=>{
       res.send('OK');
     }
     
+  })
+})
+
+//Almacena Venta
+app.post("/bd/generaDetalle/:cant/:monto/:fecha/:codOper",(req,res)=>{
+  //const id=req.params.id;
+  const cant=req.params.cant;
+  const monto=req.params.monto;
+  const fecha=req.params.fecha;
+  const codOper=req.params.codOper;
+
+  const sql='INSERT INTO detalleventas(cantidad, montoProd, fechaVenta, cod_oper) VALUES ("'+cant+'","'+monto+'","'+fecha+'","'+codOper+'")';
+  conexion.query(sql,function(error,results){
+    if(error){
+      throw error;
+    }else{
+      res.send('Registro Agregado');
+    }
+  })
+})
+
+
+//Orden de Compra
+app.get("/bd/ordenCompra/",(req,res)=>{
+  const sql='SELECT MAX(cod_oper)+1 as cod_oper FROM detalleventas';
+  conexion.query(sql,function(error,results){
+    if(error){
+      throw error;
+    }else{
+      res.send(results);
+    }
   })
 })

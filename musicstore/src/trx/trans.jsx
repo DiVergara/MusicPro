@@ -120,18 +120,24 @@ jQuery(function () {
 
 });
 /////-------------------------------
+	const [codOper,setCodOper]=UseState([]);
+	const getCodOper=async()=>{
+		return fetch('http://localhost:5500/bd/ordenCompra/').then(response => response.json());
+	}
+	
 
+	getCodOper().then((data)=>{setCodOper(data)})
+	
 //Variables Pagina 
     const {montoVenta}=UseParams()
 
-    const buyOrder="1";
+    const buyOrder=codOper.map((cods)=>(cods.cod_oper));
     const sessionId="40156";
     const amount=montoVenta;
     const returnUrl="http://localhost:3000/Recibo/"
-    //const data=([buyOrder,sessionId,amount,returnUrl])
-	
 
-	//console.log(carro.map((prod)=>(prod.codigoProducto)))
+
+
     //Webpay
 
     const [dataTrx,setDataTrx]=UseState("");
@@ -139,7 +145,7 @@ jQuery(function () {
 
 //Metodos WebService
 	const getTrx=async()=>{
-      	return fetch('http://localhost:5500/webpay/'+amount).then(response => response.json());
+      	return fetch('http://localhost:5500/webpay/'+amount+'/'+buyOrder).then(response => response.json());
 	}
 	getTrx().then((data)=>{setDataTrx(data)})
 	//---------------
