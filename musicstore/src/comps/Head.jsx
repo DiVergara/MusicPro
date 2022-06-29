@@ -38,8 +38,8 @@ const Head = () => {
                     <li class="dropdown">
                         <a href="/Productos/Percusion" class="navig">Percusion</a>
                         <div class="dropdown-content">
-                            <a href="/Productos/Bateria Acustica">Bateria Acustica</a>
-                            <a href="/Productos/Bateria Electronica">Bateria Electronica</a>
+                            <a href="/Productos/PERC-AC">Bateria Acustica</a>
+                            <a href="/Productos/PERC-ELEC">Bateria Electronica</a>
                         </div>
                     </li>
                 </ul>

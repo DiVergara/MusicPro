@@ -6,26 +6,25 @@ const prodCarro = (props) => {
 
 
 
-    const {nombre,precio}=props;
+    const {pos,nombre,precio}=props;
 
-    
-
-    const quitarProd=()=>{
-        
-    }
-
+    const formatterPeso = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
+        minimumFractionDigits: 0
+      });
 
     return (
         <div>
             <ul className='row rows-col-3' list-style={'none'}>
                 <li class='col'>
+                <img src={pos} style={{width:'80px'}} alt='...'></img>
+                </li>
+                <li class='col'>
                     {nombre}
                 </li>
                 <li class='col'>
-                    ${precio}
-                </li>
-                <li class='col'>
-                    <CloseButton />
+                    {formatterPeso.format(precio)}
                 </li>
             </ul>
         </div>

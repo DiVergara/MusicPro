@@ -35,14 +35,15 @@ const Productos = () => {
     
     getProds().then((data)=>{setProdsBD(data)});
 
-    //console.log(prodsBD);
+    const store = JSON.parse(localStorage.getItem('cart'))
+    console.log(store)
 
    //Style
     const styleDivBody={
-        color: "black",
+      color: "black",
       backgroundColor: "black",
-      padding: "20  px",
-      fontFamily: "Arial",
+      padding: "10  px",
+      fontFamily: "Arial"
       
 
     };
@@ -53,7 +54,7 @@ const Productos = () => {
 
     return (
         <div style={{backgroundcolor:"black"}}>
-            <div style={styleCar} class='position-fixed top-1 end-0'>
+            <div style={{background:"opacity"}} class='position-fixed top-1 end-0'>
                 <Shopcar cart={cart} setCart={setCart}/>
             </div>
             <div class="container-fluid">
@@ -63,7 +64,12 @@ const Productos = () => {
 
                         <ProdCards cod={producto.codigoProducto} imagen={producto.foto} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={prodsBD}/>
                 ))}
-            </div>):(<h1>No hay Productos, Pronto Ampliaremos el Stock</h1>)}
+            </div>):(<div class="text-center" style={styleDivBody}>
+                <h1 style={{color:"white"}}>-----------------------------------------------------------------------------------</h1>
+                <h1 style={{color:"white"}}>Lamentamos la noticia pero.....</h1>
+                <h1 style={{color:"white"}}>No hay Productos, Pronto Ampliaremos el Stock</h1>
+                <h1 style={{color:"white"}}>-----------------------------------------------------------------------------------</h1>
+                </div>)}
             </div>
         </div>
 
