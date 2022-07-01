@@ -1,9 +1,10 @@
 import React, { useEffect as UseEffect, useState as UseState } from 'react';
 import { useParams as UseParams } from 'react-router-dom';
 import './trans.css'
-import jQuery from "jquery";
+import jQuery, { event } from "jquery";
 import { useState } from 'react';
 import { Cart } from 'react-ionicons';
+import { getValue } from '@testing-library/user-event/dist/utils';
 
 
 const trans = () => {
@@ -138,6 +139,12 @@ jQuery(function () {
 
 
 
+	const {nameU,setNameU}=UseState("");
+	const {correo}=UseState("");
+	const {reg}=UseState("");
+	const {com}=UseState("");
+	const {direc}=UseState("");
+
     //Webpay
 
     const [dataTrx,setDataTrx]=UseState("");
@@ -150,9 +157,12 @@ jQuery(function () {
 	getTrx().then((data)=>{setDataTrx(data)})
 	//---------------
 
+	const formatterPeso = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
+        minimumFractionDigits: 0
+      })
 
-
-	//console.log(dataTrx.token)
 
 //Styles
     const styleInput={
@@ -164,24 +174,24 @@ jQuery(function () {
             <h2>Datos para Envio</h2>
             <div class="mb-2">
                 <label for="exampleFormControlInput1" class="form-label">Nombre:</label>
-                <input type="text" class="form-control col-xs-3" id="email" placeholder="Nombre Completo" style={styleInput}/>
+                <input type="text" class="form-control col-xs-3" id="nomb" name='nomb' placeholder="Nombre Completo" style={styleInput} />
             </div>
             <div class="mb-2">
                 <label for="exampleFormControlInput1" class="form-label">Correo Electronico:</label>
-                <input type="email" class="form-control col-xs-3" id="email" placeholder="correo@example.com" style={styleInput}/>
+                <input type="email" class="form-control col-xs-3" id="email" name='email' placeholder="correo@example.com" style={styleInput}/>
             </div>
             <div class="mb-2">
                 <label for="exampleFormControlInput1" class="form-label">Region:</label>
-                <select type="dropdown" class="form-control col-xs-3" id="regiones" placeholder="Region" style={styleInput}/>
+                <select type="dropdown" class="form-control col-xs-3" id="regiones" name='region' placeholder="Region" style={styleInput}/>
                 <label for="exampleFormControlInput1" class="form-label">Comuna:</label>
-                <select type="dropdown" class="form-control col-xs-3" id="comunas" placeholder="Comuna" style={styleInput}/>
+                <select type="dropdown" class="form-control col-xs-3" id="comunas" name='comuna' placeholder="Comuna" style={styleInput}/>
             </div>
             <div class="mb-2">
                 <label for="exampleFormControlInput1" class="form-label">Direccion:</label>
-                <input type="text" class="form-control col-xs-3" id="direccion" placeholder="Direccion" style={styleInput}/>
+                <input type="text" class="form-control col-xs-3" id="direccion" name='direccion' placeholder="Direccion" style={styleInput}/>
             </div>
 
-            <p class="txtMonto">Monto Productos: ${amount}</p>
+            <p class="txtMonto">Monto Productos: {formatterPeso.format(amount)}</p>
             <form class="text-center" action={dataTrx.url} method="POST">
                 <input type="hidden" name="token_ws" value={dataTrx.token}/>
                 {amount!=="0" ?(<input class="btn_pay" type="submit" value="Pagar"/>):<p> No Se puede efectuar Venta</p>}

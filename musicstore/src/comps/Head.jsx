@@ -25,7 +25,7 @@ const Head = () => {
             <div class="row row-cols-5">
                 <ul>
                     <li class="dropdown">
-                        <a href="/Productos/Cuerdas" class="navig">Cuerdas</a>
+                        <a  class="navig">Cuerdas</a>
                         <div class="dropdown-content">
                             <a href="/Productos/Cuerdas-GA">Guitarras Acusticas</a>
                             <a href="/Productos/Cuerdas-GE">Guitarras Electricas</a>
@@ -36,7 +36,7 @@ const Head = () => {
                 </ul>
                 <ul>
                     <li class="dropdown">
-                        <a href="/Productos/Percusion" class="navig">Percusion</a>
+                        <a  class="navig">Percusion</a>
                         <div class="dropdown-content">
                             <a href="/Productos/PERC-AC">Bateria Acustica</a>
                             <a href="/Productos/PERC-ELEC">Bateria Electronica</a>
@@ -45,7 +45,7 @@ const Head = () => {
                 </ul>
                 <ul>
                     <li class="dropdown">
-                        <a href="/Productos/Amplificacion" class="navig">Amplificacion</a>
+                        <a  class="navig">Amplificacion</a>
                         <div class="dropdown-content">
                             <a href="/Productos/Cabezales">Cabezales</a>
                             <a href="/Productos/Cajas">Cajas</a>

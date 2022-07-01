@@ -13,6 +13,8 @@ const ProdCards = (props) => {
         setCart([...cart,...prod])
     }
 
+    localStorage.setItem('shopStandby',JSON.stringify(cart));
+
 
     const formatterPeso = new Intl.NumberFormat('es-CL', {
         style: 'currency',

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { post } from 'jquery';
 import {React, useState} from 'react';
-import { Link,useParams } from 'react-router-dom';
+import { Link,useParams,useNavigate } from 'react-router-dom';
 
 
 const Recibo = () => {
@@ -28,6 +28,7 @@ const Recibo = () => {
         axios.put('http://localhost:5500/bd/BorrarProd/'+cod).then(response => response.json());
     }
 
+    
 
     const getTrx=async()=>{
           return fetch('http://localhost:5500/trxRecibo/'+tokenData).then(response => response.json());
@@ -35,7 +36,7 @@ const Recibo = () => {
     
     getTrx().then((data)=>{setDataTrx(data)})
     
-    //console.log(dataTrx)
+    //Modifica Stock
     const modStock=()=>{
             carro.map((prods)=>(
                 delItems(prods.codigoProducto).then((data)=>setResp(data))
@@ -73,6 +74,10 @@ const Recibo = () => {
         }
     }
 
+    const navigate = useNavigate();
+    if (dataTrx.response_code!=0) {
+        return navigate('/trx/'+dataTrx.amount)
+      }
     
 
     return (

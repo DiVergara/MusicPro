@@ -35,8 +35,10 @@ const Productos = () => {
     
     getProds().then((data)=>{setProdsBD(data)});
 
-    const store = JSON.parse(localStorage.getItem('cart'))
+    
+    const store = JSON.parse(localStorage.getItem('shopStandby'))
     console.log(store)
+
 
    //Style
     const styleDivBody={
