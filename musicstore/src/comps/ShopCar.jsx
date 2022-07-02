@@ -34,7 +34,7 @@ const ShopCar=({cart,setCart})=>{
         <>
         <img src='https://cdn-icons-png.flaticon.com/512/641/641813.png' width='70px' onClick={handleShow}/>
         
-        <Offcanvas show={show} onHide={handleClose} placement="end" scroll='true' backdrop='true' aria-modal='true'>
+        <Offcanvas show={show} onHide={handleClose} placement="end" scroll='true' backdrop='true' aria-modal='true' style={{width:"500px"}}>
                 <OffcanvasHeader closeButton><OffcanvasTittle>Carro de Compras</OffcanvasTittle></OffcanvasHeader>
                 <OffcanvasBody>
                     <div class='row row-col-2'>
@@ -45,7 +45,7 @@ const ShopCar=({cart,setCart})=>{
                             Precio
                         </ul>
                     </div>
-                    <div>
+                    <div class='row row-col-4'>
                     {cart.length===0 ? (<p>No hay Productos en el carro</p>) :(cart.map((prod,index)=>(<ProdCarro pos={prod.foto} nombre={prod.nombre} precio={prod.precio}/>)))}
                     </div>
                     <div class='row row-col-3'>
@@ -57,7 +57,6 @@ const ShopCar=({cart,setCart})=>{
                         </ul>
                         <ul class='col'>
                         {montoVenta!="0" ?(<Link class="btn btn-success" to={"/trx/"+montoVenta}>Pagar</Link>):<p></p>}
-
                         </ul>
                     </div>
                 </OffcanvasBody>

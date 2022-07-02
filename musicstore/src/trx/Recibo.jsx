@@ -75,9 +75,15 @@ const Recibo = () => {
     }
 
     const navigate = useNavigate();
-    if (dataTrx.response_code!=0) {
-        return navigate('/trx/'+dataTrx.amount)
-      }
+    const validacion=()=>{
+        if (dataTrx.response_code<0) {
+            return navigate('/trx/'+dataTrx.amount)
+          }else{
+            return console.log('ok')
+          }
+    }
+    
+    validacion();
     
 
     return (
@@ -92,7 +98,7 @@ const Recibo = () => {
                 {dataTrx.installments_amount !=undefined ? (<a>Monto de las cuotas: ${dataTrx.installments_amount+' '}</a>) :<p/>}
             </div>
             <div class="text-center">
-                <Link class="btn btn-success" to={"/"} onClick={()=>modStock()}>Volver a Inicio</Link>
+                <Link class="btn btn-success" to={"/"} onClick={modStock()}>Volver a Inicio</Link>
 
             </div>
             

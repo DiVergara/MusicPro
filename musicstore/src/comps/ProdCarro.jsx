@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState as UseState } from 'react';
 import { CloseButton } from 'react-bootstrap';
+import { CarSharp } from 'react-ionicons';
 import './ProdCarro.css'
 const prodCarro = (props) => {
 
@@ -7,6 +9,10 @@ const prodCarro = (props) => {
 
 
     const {pos,nombre,precio}=props;
+
+    const [carro,setCarro]=UseState(['']);
+
+    
 
     const formatterPeso = new Intl.NumberFormat('es-CL', {
         style: 'currency',
@@ -16,7 +22,7 @@ const prodCarro = (props) => {
 
     return (
         <div>
-            <ul className='row rows-col-3' list-style={'none'}>
+            <ul className='row rows-col-4' list-style={'none'}>
                 <li class='col'>
                 <img src={pos} style={{width:'80px'}} alt='...'></img>
                 </li>
@@ -26,6 +32,7 @@ const prodCarro = (props) => {
                 <li class='col'>
                     {formatterPeso.format(precio)}
                 </li>
+                <li class='col'><CloseButton/></li>
             </ul>
         </div>
     );

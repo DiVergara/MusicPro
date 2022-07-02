@@ -64,7 +64,10 @@ const Productos = () => {
                 
                 {prodsBD.map((producto)=>(
 
-                        <ProdCards cod={producto.codigoProducto} imagen={producto.foto} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={prodsBD}/>
+                    
+                    (<ProdCards cod={producto.codigoProducto} imagen={producto.foto} nombre={producto.nombre} precio={producto.precio} cart={cart} setCart={setCart} productos={prodsBD}/>)
+                
+                        
                 ))}
             </div>):(<div class="text-center" style={styleDivBody}>
                 <h1 style={{color:"white"}}>-----------------------------------------------------------------------------------</h1>
