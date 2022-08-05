@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { post } from 'jquery';
+/*import { post } from 'jquery';*/
 import {React, useState} from 'react';
 import { Link,useParams,useNavigate } from 'react-router-dom';
 

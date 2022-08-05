@@ -132,7 +132,7 @@ jQuery(function () {
 //Variables Pagina 
     const {montoVenta}=UseParams()
 
-    const buyOrder=codOper.map((cods)=>(cods.cod_oper));
+    const buyOrder=1/*codOper.map((cods)=>(cods.cod_oper));*/
     const sessionId="40156";
     const amount=montoVenta;
     const returnUrl="http://localhost:3000/Recibo/"

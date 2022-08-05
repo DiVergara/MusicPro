@@ -172,7 +172,7 @@ app.post("/bd/generaDetalle/:cant/:monto/:fecha/:codOper",(req,res)=>{
 })
 
 
-//Orden de Compra
+/*//Orden de Compra
 app.get("/bd/ordenCompra/",(req,res)=>{
   const sql='SELECT MAX(cod_oper)+1 as cod_oper FROM detalleventas';
   conexion.query(sql,function(error,results){
@@ -182,4 +182,4 @@ app.get("/bd/ordenCompra/",(req,res)=>{
       res.send(results);
     }
   })
-})
+})*/
